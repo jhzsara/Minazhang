@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MinaZhang — Private space</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header"><a class="brand" href="index.html"><span class="brand-dot"></span>MinaZhang</a><button class="btn btn-ghost" id="logout">Log out</button></header>
+<main class="dashboard-wrap"><section class="dashboard-card">
+<div class="dashboard-top"><div><span class="eyebrow">YOUR PRIVATE SPACE</span><h1>Welcome, <span id="displayName">Member</span>.</h1><p id="status">Loading your private conversation…</p></div><span class="online-pill">● Private</span></div>
+<div class="topic-box"><span class="eyebrow">YOUR TOPICS</span><p>Pick the kinds of conversation you're comfortable with. You can change these anytime.</p><div class="topic-grid">
+<label><input type="checkbox" value="Casual"> Casual</label><label><input type="checkbox" value="Personal"> Personal</label><label><input type="checkbox" value="Flirty"> Flirty</label><label><input type="checkbox" value="Adult / NSFW"> Adult / NSFW</label><label><input type="checkbox" value="Roleplay"> Roleplay</label><label><input type="checkbox" value="Photos"> Photos</label>
+</div><button class="btn" id="saveTopics">Save topics</button><span id="topicSaved"></span></div>
+<div class="chat-shell"><div class="chat-header"><div><strong>Private chat</strong><small>Only you and MinaZhang</small></div><span>1:1</span></div>
+<div id="messages" class="messages"><div class="empty-chat">Your conversation will appear here.</div></div>
+<form id="messageForm" class="message-form"><input id="messageInput" maxlength="4000" placeholder="Write a message…" autocomplete="off" required><button class="btn" type="submit">Send</button></form></div>
+</section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="dashboard.js"></script>
+</body></html>
