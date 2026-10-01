@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>MinaZhang — Developer access</title><link rel="stylesheet" href="styles.css"></head><body>
+<header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">M</span>MinaZhang</a></header>
+<main class="dev-shell"><section class="dev-card"><span class="eyebrow">DEVELOPER ACCESS</span><h1>Creator login.</h1><p style="color:var(--muted)">Sign in with your MinaZhang account, then enter your private developer code.</p>
+<form id="devLogin"><label>Email<input id="devEmail" type="email" autocomplete="email" required></label><label>Password<input id="devPassword" type="password" autocomplete="current-password" required></label><button class="btn" type="submit">Sign in</button></form>
+<form id="devCode" hidden><label>Developer code<input id="accessCode" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" required></label><button class="btn" type="submit">Open creator dashboard</button></form>
+<div class="dev-status" id="devStatus"></div></section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="developer.js"></script></body></html>
