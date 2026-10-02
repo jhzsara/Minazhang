@@ -12,10 +12,10 @@
 <span class="eyebrow">18+ VERIFICATION</span><h2 style="margin:8px 0 6px">A few details before you continue.</h2>
 <p>Enter your legal name, date of birth, country and address. This is used to confirm that you meet the 18+ requirement and to protect the service from abuse and fraud.</p>
 <form id="verificationForm" style="display:grid;gap:12px;max-width:620px">
-<input id="legalName" class="form-input" required minlength="2" autocomplete="name" placeholder="Full name">
-<input id="birthDate" class="form-input" required type="date" autocomplete="bday">
-<select id="country" class="form-input" required autocomplete="country-name"><option value="">Country</option><option>Netherlands</option><option>Belgium</option><option>France</option><option>Spain</option><option>Germany</option><option>Morocco</option><option>United Kingdom</option><option>United States</option><option>Other</option></select>
-<input id="address" class="form-input" required minlength="5" autocomplete="street-address" placeholder="Address">
+<label class="form-label" for="legalName">Legal full name</label><input id="legalName" class="form-input" required minlength="2" autocomplete="name" placeholder="Your full legal name">
+<label class="form-label" for="birthDate">Date of birth</label><input id="birthDate" class="form-input" required type="date" inputmode="numeric" autocomplete="bday" min="1900-01-01" max="2026-10-02" aria-label="Date of birth"><small class="verification-hint">Use the date picker or type the date if your browser allows it.</small>
+<label class="form-label" for="country">Country</label><select id="country" class="form-input" required autocomplete="country-name"><option value="">Country</option><option>Netherlands</option><option>Belgium</option><option>France</option><option>Spain</option><option>Germany</option><option>Morocco</option><option>United Kingdom</option><option>United States</option><option>Other</option></select>
+<label class="form-label" for="address">Full address</label><input id="address" class="form-input" required minlength="5" autocomplete="street-address" placeholder="Street, house number, postal code and city">
 <button class="btn" type="submit">Verify & continue</button><small id="verificationMessage"></small></form>
 <p style="font-size:.82rem;margin-top:12px">For stronger identity checks, MinaZhang can use a dedicated third-party verification provider. Do not send passport images or banking passwords in chat.</p></div>
 <div id="memberArea" hidden><div class="topic-box"><span class="eyebrow">YOUR TOPICS</span><p>Pick the kinds of conversation you're comfortable with. You can change these anytime.</p><div class="topic-grid">
