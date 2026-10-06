@@ -20,8 +20,12 @@ if(error){err.textContent=error.message;return;}
 if(data.session){location.href='dashboard.html';return;}
 showConfirmation(email,err);
 }else{
-const {error}=await client.auth.signInWithPassword({email,password});
-if(error){err.textContent=error.message;return;}location.href='dashboard.html';
+const {data,error}=await client.auth.signInWithPassword({email,password});
+if(error){err.textContent=error.message;return;}
+const {data:profile,error:profileError}=await client.from('profiles').select('role').eq('id',data.user.id).maybeSingle();
+if(profileError){await client.auth.signOut();err.textContent='Could not verify this account. Please try again.';return;}
+if(profile?.role==='admin'){await client.auth.signOut();err.textContent='Creator accounts can only be accessed through the Developer page.';return;}
+location.href='dashboard.html';
 }}));
 content.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.switch)));
 }
