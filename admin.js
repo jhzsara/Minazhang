@@ -4,25 +4,6 @@ const $=id=>document.getElementById(id);
 let me=null,conversations=[],members={},active=null,activeMemberId=null;
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
 function memberLabel(id){return members[id]?.display_name||'Member';}
-function renderBilling(p){
-  const box=$('billingPanel');
-  if(!p){box.innerHTML='<p class="muted">Choose a member to view billing details.</p>';return;}
-  const method=p.payment_method_brand?(p.payment_method_brand+(p.payment_method_last4?' •••• '+p.payment_method_last4:'')):(p.payment_method_type||'—');
-  const rows=[['Legal name',p.display_name||'—'],['Date of birth',p.birth_date||'—'],['Country',p.country||'—'],['Full address',p.address_line||'—'],['Subscription',p.subscription_status||'inactive'],['Payment status',p.payment_status||'—'],['Method',method],['Billing name',p.billing_name||'—'],['Country',p.billing_country||'—'],['Customer ID',p.stripe_customer_id||'—'],['Subscription ID',p.subscription_id||'—'],['Trial ends',p.trial_ends_at?new Date(p.trial_ends_at).toLocaleString():'—'],['Next billing',p.next_billing_at?new Date(p.next_billing_at).toLocaleString():'—'],['Last payment',p.last_payment_at?new Date(p.last_payment_at).toLocaleString():'—']];
-  box.innerHTML='<div class="admin-billing-grid">'+rows.map(([k,v])=>'<div><small>'+esc(k)+'</small><strong>'+esc(v)+'</strong></div>').join('')+'</div><div class="fraud-review"><span class="eyebrow">MANUAL FRAUD REVIEW</span><h3>Review this member</h3><p>Use the provider metadata above plus account and support evidence when reviewing suspicious activity.</p><textarea id="fraudNote" maxlength="1500" placeholder="Private review note…">'+esc(p.fraud_review_note||'')+'</textarea><div class="fraud-actions"><button class="btn btn-ghost" id="markNeedsReview" type="button">Flag for review</button><button class="btn" id="markCleared" type="button">Mark cleared</button></div><div class="review-status">Status: <strong>'+esc((p.fraud_review_status||'not_reviewed').replaceAll('_',' '))+'</strong>'+(p.fraud_reviewed_at?' • '+new Date(p.fraud_reviewed_at).toLocaleString():'')+'</div></div>';
-  async function save(status){
-    if(!activeMemberId)return;
-    const note=$('fraudNote')?.value||'';
-    const r=await client.rpc('set_fraud_review',{p_profile_id:activeMemberId,p_status:status,p_note:note});
-    if(r.error){$('adminStatus').textContent=r.error.message;return;}
-    const m=members[activeMemberId];
-    m.fraud_review_status=status;m.fraud_review_note=note.trim()||null;m.fraud_reviewed_at=new Date().toISOString();
-    renderBilling(m);renderMembers($('memberSearch').value);
-    $('adminStatus').textContent=status==='cleared'?'Review marked cleared.':'Member flagged for review.';
-  }
-  $('markNeedsReview').onclick=()=>save('needs_review');
-  $('markCleared').onclick=()=>save('cleared');
-}
 function renderMembers(filter=''){
   const box=$('memberItems'),q=filter.toLowerCase();
   const rows=conversations.filter(c=>memberLabel(c.subscriber_id).toLowerCase().includes(q));
