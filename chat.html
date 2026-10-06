@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mina Zhang — Private chat</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="chat-page">
+<header class="site-header chat-site-header">
+  <a class="brand" href="index.html"><span class="brand-dot"></span>MinaZhang</a>
+  <button class="btn btn-ghost" id="chatLogout">Log out</button>
+</header>
+<main class="private-chat-wrap">
+  <section class="private-chat-card">
+    <div class="private-chat-profile">
+      <img id="minaPfp" src="assets/mina-pfp.jpg" alt="Mina Zhang">
+      <div class="private-chat-profile-copy">
+        <strong>Mina Zhang</strong>
+        <span id="minaStatus"><i class="status-dot offline"></i> Offline</span>
+      </div>
+    </div>
+    <div id="messages" class="private-messages">
+      <div class="empty-chat">Your private conversation will appear here.</div>
+    </div>
+    <form id="chatForm" class="private-message-form">
+      <input id="chatInput" maxlength="4000" placeholder="Message Mina…" autocomplete="off" required>
+      <button class="btn" type="submit">Send</button>
+    </form>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>
