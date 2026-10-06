@@ -5,6 +5,7 @@ create extension if not exists pgcrypto;
 create table if not exists public.profiles (
  id uuid primary key references auth.users(id) on delete cascade,
  display_name text not null default 'Member',
+ legal_name text,
  birth_date date,
  country text,
  address_line text,
@@ -59,7 +60,7 @@ create policy messages_delete_admin on public.messages for delete using(public.i
 do $$ begin alter publication supabase_realtime add table public.messages; exception when duplicate_object then null; end $$;
 
 -- Verification gate: validates 18+ and updates only the authenticated member's profile.
-create or replace function public.complete_profile_verification(p_display_name text,p_birth_date date,p_country text,p_address_line text) returns public.profiles language plpgsql security definer set search_path=public as $$ declare result public.profiles; begin if auth.uid() is null then raise exception 'Not authenticated'; end if; if p_display_name is null or length(trim(p_display_name))<2 then raise exception 'Please enter your name'; end if; if p_birth_date is null or p_birth_date > (current_date - interval '18 years')::date then raise exception 'You must be 18 or older'; end if; if p_country is null or length(trim(p_country))<2 then raise exception 'Please select your country'; end if; if p_address_line is null or length(trim(p_address_line))<5 then raise exception 'Please enter your address'; end if; update public.profiles set display_name=trim(p_display_name),birth_date=p_birth_date,country=trim(p_country),address_line=trim(p_address_line),age_verified=true,verification_completed=true,verification_completed_at=now() where id=auth.uid() returning * into result; return result; end; $$;
+create or replace function public.complete_profile_verification(p_display_name text,p_birth_date date,p_country text,p_address_line text) returns public.profiles language plpgsql security definer set search_path=public as $$ declare result public.profiles; begin if auth.uid() is null then raise exception 'Not authenticated'; end if; if p_display_name is null or length(trim(p_display_name))<2 then raise exception 'Please enter your name'; end if; if p_birth_date is null or p_birth_date > (current_date - interval '18 years')::date then raise exception 'You must be 18 or older'; end if; if p_country is null or length(trim(p_country))<2 then raise exception 'Please select your country'; end if; if p_address_line is null or length(trim(p_address_line))<5 then raise exception 'Please enter your address'; end if; update public.profiles set legal_name=trim(p_display_name),birth_date=p_birth_date,country=trim(p_country),address_line=trim(p_address_line),age_verified=true,verification_completed=true,verification_completed_at=now() where id=auth.uid() returning * into result; return result; end; $$;
 revoke all on function public.complete_profile_verification(text,date,text,text) from public; grant execute on function public.complete_profile_verification(text,date,text,text) to authenticated;
 
 -- Fake payment storage test. This intentionally cannot store arbitrary or real card/CVV values.
