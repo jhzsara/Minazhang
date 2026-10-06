@@ -8,14 +8,14 @@ login:()=>`<span class="eyebrow">WELCOME BACK</span><h3>Log in</h3><p>Access you
 };
 function openModal(type){content.innerHTML=formTemplates[type]();modal.classList.remove('hidden');modal.setAttribute('aria-hidden','false');wireForms();content.querySelector('input')?.focus();}
 function closeModal(){modal.classList.add('hidden');modal.setAttribute('aria-hidden','true');}
-function showConfirmation(email,err){err.innerHTML=`Account created. Check your email and tap the confirmation link once.<br><button type="button" class="link-button" id="resendConfirm">Resend confirmation email</button>`;const b=document.getElementById('resendConfirm');b?.addEventListener('click',async()=>{b.disabled=true;b.textContent='Sending…';const {error}=await client.auth.resend({type:'signup',email,options:{emailRedirectTo:redirectUrl()}});b.textContent=error?error.message:'Sent ✓';});}
+function showConfirmation(email,err){err.textContent='Account created. You can log in now.';}
 async function wireForms(){
 content.querySelectorAll('form').forEach(form=>form.addEventListener('submit',async e=>{
 e.preventDefault();const err=form.querySelector('.form-error');err.hidden=false;err.textContent='Working…';
 const fd=new FormData(form),email=String(fd.get('email')||'').trim(),password=String(fd.get('password')||'');
 if(form.id==='joinForm'){
 const display_name=String(fd.get('display_name')||'').trim();
-const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name},emailRedirectTo:redirectUrl()}});
+const response=await fetch(window.SUPABASE_URL+'/functions/v1/instant-signup',{method:'POST',headers:{'Content-Type':'application/json',apikey:window.SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({email,password,display_name,age_confirmed:!!fd.get('age')})});const data=await response.json().catch(()=>({}));const error=!response.ok?{message:data.error||'Could not create account right now.'}:null;
 if(error){err.textContent=error.message;return;}
 if(data.session){location.href='dashboard.html';return;}
 showConfirmation(email,err);
