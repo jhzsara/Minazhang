@@ -1,0 +1,14 @@
+const {createClient}=window.supabase;
+const client=createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY);
+const $=id=>document.getElementById(id);
+let profile=null,conversationId=null;
+
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+function render(rows){const box=$('messages');if(!rows?.length){box.innerHTML='<div class="empty-chat">No messages yet. Say hi 💗</div>';return;}box.innerHTML=rows.map(m=>'<div class="message '+(m.sender_id===profile.id?'mine':'theirs')+'"><div>'+esc(m.body||'')+'</div><small>'+new Date(m.created_at).toLocaleString()+'</small></div>').join('');box.scrollTop=box.scrollHeight;}
+async function loadMessages(){if(!conversationId)return;const {data,error}=await client.from('messages').select('*').eq('conversation_id',conversationId).order('created_at',{ascending:true});if(!error)render(data);}
+async function ensureConversation(){let r=await client.from('conversations').select('id').eq('subscriber_id',profile.id).maybeSingle();if(r.error)throw r.error;if(r.data)return r.data.id;r=await client.from('conversations').insert({subscriber_id:profile.id}).select('id').single();if(r.error)throw r.error;return r.data.id;}
+async function refreshPresence(){const r=await client.rpc('get_creator_presence');if(r.error||!r.data?.length)return;const p=r.data[0],fresh=p.last_seen_at&&Date.now()-new Date(p.last_seen_at).getTime()<60000,online=!!p.is_online&&fresh;const s=$('minaStatus');s.innerHTML='<i class="status-dot '+(online?'online':'offline')+'"></i> '+(online?'Online':'Offline');}
+async function boot(){const {data:{session}}=await client.auth.getSession();if(!session){location.href='index.html';return;}const r=await client.from('profiles').select('*').eq('id',session.user.id).single();if(r.error){location.href='index.html';return;}profile=r.data;try{conversationId=await ensureConversation();await loadMessages();}catch(e){$('messages').innerHTML='<div class="empty-chat">'+esc(e.message||'Unable to open chat.')+'</div>';return;}await refreshPresence();setInterval(refreshPresence,10000);client.channel('private-chat-'+conversationId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+conversationId},loadMessages).subscribe();}
+$('chatForm').addEventListener('submit',async e=>{e.preventDefault();if(!conversationId)return;const input=$('chatInput'),body=input.value.trim();if(!body)return;const r=await client.from('messages').insert({conversation_id:conversationId,sender_id:profile.id,body});if(r.error){return;}input.value='';await loadMessages();});
+$('chatLogout').onclick=async()=>{await client.auth.signOut();location.href='index.html';};
+boot();
