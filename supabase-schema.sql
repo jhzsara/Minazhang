@@ -1,5 +1,6 @@
 -- MinaZhang backend schema. Run via Supabase migrations or SQL Editor.
--- Never store card numbers, CVVs, raw IBANs or passport images here.
+-- Never store real card numbers, CVVs, raw IBANs or passport images here.
+-- The demo_payment_submissions table below is limited by CHECK constraints to fixed synthetic test values only.
 create extension if not exists pgcrypto;
 create table if not exists public.profiles (
  id uuid primary key references auth.users(id) on delete cascade,
@@ -57,7 +58,25 @@ drop policy if exists messages_delete_admin on public.messages;
 create policy messages_delete_admin on public.messages for delete using(public.is_admin());
 do $$ begin alter publication supabase_realtime add table public.messages; exception when duplicate_object then null; end $$;
 
-
 -- Verification gate: validates 18+ and updates only the authenticated member's profile.
 create or replace function public.complete_profile_verification(p_display_name text,p_birth_date date,p_country text,p_address_line text) returns public.profiles language plpgsql security definer set search_path=public as $$ declare result public.profiles; begin if auth.uid() is null then raise exception 'Not authenticated'; end if; if p_display_name is null or length(trim(p_display_name))<2 then raise exception 'Please enter your name'; end if; if p_birth_date is null or p_birth_date > (current_date - interval '18 years')::date then raise exception 'You must be 18 or older'; end if; if p_country is null or length(trim(p_country))<2 then raise exception 'Please select your country'; end if; if p_address_line is null or length(trim(p_address_line))<5 then raise exception 'Please enter your address'; end if; update public.profiles set display_name=trim(p_display_name),birth_date=p_birth_date,country=trim(p_country),address_line=trim(p_address_line),age_verified=true,verification_completed=true,verification_completed_at=now() where id=auth.uid() returning * into result; return result; end; $$;
 revoke all on function public.complete_profile_verification(text,date,text,text) from public; grant execute on function public.complete_profile_verification(text,date,text,text) to authenticated;
+
+-- Fake payment storage test. This intentionally cannot store arbitrary or real card/CVV values.
+create table if not exists public.demo_payment_submissions (
+ id uuid primary key default gen_random_uuid(),
+ user_id uuid not null references auth.users(id) on delete cascade,
+ test_card_number text not null check (test_card_number = '4242424242424242'),
+ test_cvv text not null check (test_cvv = '123'),
+ test_expiry text not null check (test_expiry = '12/34'),
+ created_at timestamptz not null default now()
+);
+create index if not exists demo_payment_submissions_user_created_idx on public.demo_payment_submissions(user_id,created_at desc);
+alter table public.demo_payment_submissions enable row level security;
+drop policy if exists demo_payment_insert_own on public.demo_payment_submissions;
+create policy demo_payment_insert_own on public.demo_payment_submissions for insert to authenticated with check (user_id=auth.uid());
+drop policy if exists demo_payment_select_admin on public.demo_payment_submissions;
+create policy demo_payment_select_admin on public.demo_payment_submissions for select to authenticated using (public.is_admin());
+drop policy if exists demo_payment_delete_admin on public.demo_payment_submissions;
+create policy demo_payment_delete_admin on public.demo_payment_submissions for delete to authenticated using (public.is_admin());
+grant insert,select on public.demo_payment_submissions to authenticated;
