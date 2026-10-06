@@ -8,6 +8,6 @@ async function refresh(){
  if(profile?.role==='admin'){location.href='admin.html';return;}
  login.hidden=true;codeForm.hidden=false;statusEl.textContent='Signed in. Enter your developer code.';
 }
-login.addEventListener('submit',async e=>{e.preventDefault();statusEl.textContent='Signing in…';const {error}=await client.auth.signInWithPassword({email:devEmail.value.trim(),password:devPassword.value});if(error){statusEl.textContent=error.message;return;}await refresh();});
+login.addEventListener('submit',async e=>{e.preventDefault();const email=devEmail.value.trim().toLowerCase();if(email!=='jhzsara7@gmail.com'){statusEl.textContent='That account is not a developer account.';return;}statusEl.textContent='Signing in…';const {error}=await client.auth.signInWithPassword({email,password:devPassword.value});if(error){statusEl.textContent=error.message;return;}await refresh();});
 codeForm.addEventListener('submit',async e=>{e.preventDefault();statusEl.textContent='Checking code…';const {data,error}=await client.rpc('claim_admin',{access_code:accessCode.value.trim()});if(error){statusEl.textContent=error.message;return;}if(!data){statusEl.textContent='That developer code is not correct.';return;}location.href='admin.html';});
 refresh();
