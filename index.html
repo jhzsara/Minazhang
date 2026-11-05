@@ -1,81 +1,53 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090709">
-<title>MinaZhang — Private 1:1 chat</title>
-<meta name="description" content="A private one-to-one chat space for adults 18+. One month free, then €4.99/month.">
-<meta property="og:title" content="MinaZhang — Something a little more personal.">
-<meta property="og:description" content="Private 1:1 chat for adults 18+. Your own little corner of MinaZhang.">
+<meta name="theme-color" content="#090608">
+<title>NOCTURNE — After dark starts here</title>
+<meta name="description" content="A fictional 18+ members club demo. Enter after dark.">
+<meta property="og:title" content="NOCTURNE — After dark starts here">
+<meta property="og:description" content="A private members club for adults.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://minazhang.online/">
 <meta property="og:image" content="https://minazhang.online/assets/mina-1.webp">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="styles.css"></head><body>
-<header class="site-header">
-<a class="brand" href="#top"><span class="brand-mark">M</span>MinaZhang</a>
-<nav class="desktop-nav"><a href="#inside">Inside</a><a href="#vibe">Your vibe</a><a href="#membership">Membership</a><a href="#faq">FAQ</a><button class="btn btn-ghost" data-open="login">Log in</button><button class="btn" data-open="join">Join</button></nav>
-<button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
-</header>
+<link rel="stylesheet" href="styles.css">
+<style>
+:root{--bg:#080607;--panel:#130d10;--panel2:#1d1118;--text:#fff4f7;--muted:#bbaab1;--line:#39232d;--rose:#f0a5bf;--rose2:#c65c83;--cream:#f9d8c7}
+body{background:radial-gradient(ellipse at 80% 0,#421326 0,transparent 34%),radial-gradient(ellipse at 0 48%,#21101a 0,transparent 33%),#080607}
+.brand{font:600 25px Georgia,serif;letter-spacing:.12em}.brand-mark{border-color:#bd5b7d;color:#f0a5bf}
+.site-header nav{gap:20px}.hero{padding-top:76px;gap:65px}.hero h1{font-size:clamp(58px,8vw,104px);text-transform:uppercase;letter-spacing:-.065em}.hero h1 em{color:#f0a5bf}.eyebrow{color:#e58eaa}
+.image-frame{border-radius:10px;border:1px solid #6d354b;transform:rotate(1.5deg)}.sexy-frame:before{border-radius:5px;border-color:#f2c4d2}.floating-status{border-radius:3px;text-transform:uppercase;letter-spacing:.12em}.floating-brand{font:500 34px Georgia,serif}.kiss-note{border-radius:2px;background:#e8a1b7;color:#210b14}
+.btn{background:linear-gradient(130deg,#f5c2d0,#b54e73);color:#1a080f;border-radius:4px;text-transform:uppercase;letter-spacing:.08em;font-size:11px}.btn-ghost{background:transparent;color:#f9e8ee;border:1px solid #674052}.btn-large{padding:17px 25px}.intro-strip{border-color:#4a2836}.intro-strip strong{font-size:22px}.section-copy h2,.section-head h2,.membership h2,.final-cta h2{font-family:Georgia,serif;text-transform:uppercase}.story-photo{border-radius:5px}.photo-card{border-radius:5px}.vibe-grid article{border-radius:5px;background:linear-gradient(145deg,#1a1016,#0d090c)}.membership-card{border-radius:5px;border-color:#63364a;background:radial-gradient(circle at 90% 20%,rgba(210,93,132,.15),transparent 36%),#130c11}.faq details{border-radius:4px}.final-cta{border-radius:5px;border-color:#63364a}
+.nightbar{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:12px 24px;border-top:1px solid #4a2836;border-bottom:1px solid #4a2836;background:#10090e;color:#c9aeb9;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:35px}.content-tile{position:relative;overflow:hidden;border:1px solid #4b2938;background:#10090e}.content-tile img{width:100%;height:300px;object-fit:cover;display:block;filter:brightness(.78) saturate(.8)}.content-tile div{padding:15px}.content-tile b{font:22px Georgia,serif}.content-tile small{display:block;color:#d59bb0;margin-top:5px;letter-spacing:.1em;text-transform:uppercase;font-size:9px}
+.demo-disclosure{max-width:var(--max);margin:0 auto 25px;padding:0 24px;color:#8f7d86;font-size:10px;text-align:center}
+.modal-card{border-radius:5px;border-color:#63364a}.modal-card input{border-radius:4px}.modal-card .btn{border-radius:4px}
+@media(max-width:760px){.content-grid{grid-template-columns:1fr 1fr}.content-tile img{height:220px}.nightbar{font-size:8px;letter-spacing:.1em}.hero{padding-top:45px}}
+@media(max-width:480px){.content-grid{grid-template-columns:1fr}.content-tile img{height:280px}}
+</style></head><body>
+<header class="site-header"><a class="brand" href="#top"><span class="brand-mark">N</span>NOCTURNE</a>
+<nav class="desktop-nav"><a href="#discover">Discover</a><a href="#categories">Categories</a><a href="#membership">Membership</a><button class="btn btn-ghost" data-open="login">Log in</button><button class="btn" data-open="join">Enter</button></nav>
+<button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button></header>
 <main id="top">
-<section class="hero">
-<div class="hero-copy">
-<span class="eyebrow">PRIVATE • DIRECT • 18+</span>
-<h1>Come a little<br><em>closer.</em></h1>
-<p class="hero-lede">No public feed. No random group chat. Just your own private space to talk directly with MinaZhang.</p>
-<div class="hero-actions"><button class="btn btn-large btn-glow" data-open="join">Start your free month <span>→</span></button><button class="text-link text-button" data-open="login">I already have an account</button></div>
-<div class="micro-trust"><span>18+ only</span><span>Private 1:1</span><span>€0 first month</span></div>
-<div class="hero-note">♡ cute, private, simple.</div>
-</div>
-<div class="hero-visual">
-<div class="image-frame sexy-frame"><img src="assets/mina-1.webp" alt="MinaZhang photo collection"><div class="image-shade"></div><div class="floating-status"><i></i><span>private space</span></div><div class="floating-brand">MinaZhang <small>members only</small></div></div>
-<div class="kiss-note">for your eyes only ♡</div>
-</div>
-</section>
-
-<section class="intro-strip"><span>YOUR SPACE</span><strong>Less feed. More chemistry.</strong><span>PRIVATE • 1:1</span></section>
-
-<section id="inside" class="section editorial">
-<div class="section-copy"><span class="eyebrow">INSIDE</span><h2>Your own little corner of the internet.</h2><p>Create an account, choose your vibe and open one private thread. Your chat stays attached to your account so it is easy to come back.</p>
-<div class="mini-points">
-<div><span>01</span><p><strong>One private thread</strong><br>No public comments, no follower drama.</p></div>
-<div><span>02</span><p><strong>Choose the tone</strong><br>Casual, personal, flirty, roleplay or adult topics.</p></div>
-<div><span>03</span><p><strong>Made for mobile</strong><br>Open it from your socials and start chatting in seconds.</p></div>
-</div></div>
-<div class="photo-card"><img src="assets/mina-2.webp" alt="MinaZhang"><div class="photo-caption"><span>PRIVATE • 1:1</span><strong>Just between us.</strong></div></div>
-</section>
-
-<section class="section photo-story">
-<div class="section-head centered"><span class="eyebrow">A LITTLE PREVIEW</span><h2>Soft, playful, private.</h2><p>The photos live in the page like a real profile instead of one giant random block.</p></div>
-<div class="story-grid">
-<article class="story-card story-a"><div class="story-photo"><img src="assets/mina-3.webp" alt="MinaZhang portrait"></div><p>late-night energy</p></article>
-
-<article class="story-card story-c"><div class="story-photo"><img src="assets/mina-1.webp" alt="MinaZhang photo"></div><p>come say hi ♡</p></article>
-</div>
-</section>
-
-<section id="vibe" class="section vibe-section"><div class="section-head centered"><span class="eyebrow">YOUR VIBE</span><h2>You set the mood.</h2><p>Pick what you are comfortable talking about. You can change it whenever you want.</p></div>
-<div class="vibe-grid">
-<article><span>♡</span><h3>Casual</h3><p>Everyday life, random thoughts, music and whatever is on your mind.</p></article>
-<article><span>✦</span><h3>Personal</h3><p>More private conversations and things you do not post publicly.</p></article>
-<article><span>∞</span><h3>Flirty</h3><p>A playful, more intimate tone between adults.</p></article>
-<article><span>18+</span><h3>Adult</h3><p>Adult-only conversation categories for members who are 18+.</p></article>
+<section class="hero"><div class="hero-copy"><span class="eyebrow">PRIVATE MEMBERS CLUB • 18+</span><h1>AFTER<br><em>DARK.</em></h1>
+<p class="hero-lede">Some things are better left off the timeline. Step inside a private world made for grown-ups, late nights and guilty pleasures.</p>
+<div class="hero-actions"><button class="btn btn-large btn-glow" data-open="join">Enter the club <span>→</span></button><button class="text-link text-button" data-open="login">Already a member?</button></div>
+<div class="micro-trust"><span>18+ only</span><span>Private access</span><span>€0.99 / year</span></div><div class="hero-note">The night is yours. ♡</div></div>
+<div class="hero-visual"><div class="image-frame sexy-frame"><img src="assets/mina-1.webp" alt="NOCTURNE fictional editorial portrait"><div class="image-shade"></div><div class="floating-status"><i></i><span>members online</span></div><div class="floating-brand">NOCTURNE <small>the private side of midnight</small></div></div><div class="kiss-note">not for the curious ♡</div></div></section>
+<div class="nightbar"><span>Discretion is the dress code</span><span>18+ / fictional demo experience</span><span>Est. after hours</span></div>
+<section id="discover" class="section"><div class="section-head"><span class="eyebrow">THE PRIVATE COLLECTION</span><h2>One click past ordinary.</h2><p>Explore the mood. Find your corner. Stay a little longer.</p></div>
+<div class="content-grid">
+<article class="content-tile"><img src="assets/mina-2.webp" alt="Fictional editorial preview"><div><b>Velvet Hours</b><small>Exclusive preview · 08:42</small></div></article>
+<article class="content-tile"><img src="assets/mina-3.webp" alt="Fictional editorial preview"><div><b>After the Party</b><small>Members selection · 12:16</small></div></article>
+<article class="content-tile"><img src="assets/mina-4.webp" alt="Fictional editorial preview"><div><b>Private Desires</b><small>Editor's pick · 06:31</small></div></article>
 </div></section>
-
-<section id="membership" class="section membership"><div class="membership-card">
-<div><span class="eyebrow">MEMBERSHIP</span><h2>One month on me.</h2><p class="price"><strong>€0</strong><span>first month</span></p><p class="after">Then €4.99/month once billing is activated. Cancel before a renewal to avoid the next charge.</p></div>
-<div class="membership-side"><div class="private-badge">✦ PRIVATE MEMBERSHIP</div><button class="btn btn-large btn-glow" data-open="join">Join MinaZhang</button><small>18+ only • secure account access • billing through a payment provider</small></div>
+<section id="categories" class="section vibe-section"><div class="section-head centered"><span class="eyebrow">EXPLORE YOUR SIDE</span><h2>Pick your poison.</h2><p>A few doors. A different mood behind each one.</p></div><div class="vibe-grid">
+<article><span>01</span><h3>After Hours</h3><p>Late-night energy and intimate atmosphere.</p></article><article><span>02</span><h3>Secret Looks</h3><p>Editorial portraits and private-style previews.</p></article><article><span>03</span><h3>Roleplay</h3><p>Fictional adult characters and imagined worlds.</p></article><article><span>04</span><h3>Members Only</h3><p>A quieter corner for registered adults.</p></article>
 </div></section>
-
-<section id="faq" class="section faq"><div class="section-head"><span class="eyebrow">FAQ</span><h2>Before you come in.</h2></div>
-<details><summary>How much is it?</summary><p>Your first month is free. The planned membership price after that is €4.99/month once billing is connected.</p></details>
-<details><summary>Who is it for?</summary><p>Adults 18+ only.</p></details>
-<details><summary>What happens after I join?</summary><p>Create your account, choose your conversation preferences and open your private inbox.</p></details>
-<details><summary>Is the chat public?</summary><p>No. The product is built around a private one-to-one conversation, not a public feed.</p></details>
-<details><summary>What payment information can MinaZhang see?</summary><p>Payments are handled by the payment provider. The operator may receive limited billing details the provider makes available, such as payment status, billing name, bank name, country or masked account details. Full card numbers, CVV codes and online-banking passwords are never displayed by this site.</p></details>
-</section>
-
-<section class="final-cta"><div><span class="eyebrow">PRIVATE • PERSONAL • SIMPLE</span><h2>Come say hi.</h2><p>Your own little corner of MinaZhang.</p></div><button class="btn btn-large btn-glow" data-open="join">Start your free month →</button></section>
-</main>
-<footer><span>© 2026 MinaZhang</span><div><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></div></footer>
-<div class="mobile-joinbar"><button class="btn btn-ghost" data-open="login">Log in</button><button class="btn" data-open="join">Join free</button></div>
+<section id="membership" class="section membership"><div class="membership-card"><div><span class="eyebrow">THE KEY TO THE NIGHT</span><h2>One year. One tiny price.</h2><p class="price"><strong>€0.99</strong><span>/ year</span></p><p class="after">A fictional demo membership price. No payment is taken and no subscription is activated on this demo site.</p></div><div class="membership-side"><div class="private-badge">✦ 18+ MEMBERSHIP</div><button class="btn btn-large btn-glow" data-open="join">Create your access</button><small>Adults only • demo account system • no real billing</small></div></div></section>
+<section class="section faq"><div class="section-head"><span class="eyebrow">THE SMALL PRINT</span><h2>Before you enter.</h2></div><details><summary>Is this a real adult-content service?</summary><p>No. NOCTURNE is a fictional adult-themed website demo. The profiles, previews and membership are illustrative; no explicit media is hosted.</p></details><details><summary>Who can register?</summary><p>Adults aged 18 or over only. You must confirm your age to create an account.</p></details><details><summary>Does the €0.99 subscription charge me?</summary><p>No. This is a design and account-flow demo. No payment is collected or processed.</p></details><details><summary>Do you collect card details?</summary><p>No. Never enter real card numbers, CVV codes, bank details or identity documents on this demo site.</p></details></section>
+<section class="final-cta"><div><span class="eyebrow">THE DOOR IS OPEN</span><h2>Curiosity looks good on you.</h2><p>Adults only. Enter at your own discretion.</p></div><button class="btn btn-large btn-glow" data-open="join">Enter NOCTURNE →</button></section>
+</main><p class="demo-disclosure">FICTIONAL DEMO • ALL PROFILES AND PREVIEWS ARE ILLUSTRATIVE • NO REAL ADULT MEDIA OR PAYMENT PROCESSING</p>
+<footer><span>© 2026 NOCTURNE</span><div><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></div></footer>
+<div class="mobile-joinbar"><button class="btn btn-ghost" data-open="login">Log in</button><button class="btn" data-open="join">Enter</button></div>
 <div id="modal" class="modal hidden" aria-hidden="true"><div class="modal-backdrop" data-close></div><div class="modal-card" role="dialog" aria-modal="true"><button class="modal-close" data-close aria-label="Close">×</button><div id="modal-content"></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="app.js"></script>
 </body></html>
