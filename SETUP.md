@@ -1,35 +1,30 @@
-# MinaZhang setup
+# MINAFLIX — launch checklist
 
-## Built in GitHub
-The repo now contains the polished public site, responsive mobile layout, login/join interface, legal pages, contact page, domain CNAME and a Supabase/Postgres schema with row-level security for private one-to-one conversations.
+## 1. TMDB catalogue
+- Create an account at https://www.themoviedb.org/
+- Request an API Read Access Token at https://www.themoviedb.org/settings/api
+- Open MINAFLIX → gear icon → paste the token → Save settings
+- Choose NL for Netherlands availability
 
-## To make the private app actually work
-A static GitHub Pages site can show the UI, but real authentication, subscriptions and private realtime chat require backend services.
+The token is kept in the visitor's browser local storage. Do not paste it into a source file or commit it to GitHub. TMDB's API is subject to its terms, attribution rules and commercial-use restrictions.
 
-### Supabase
-Create a Supabase project and run `supabase-schema.sql` in SQL Editor. Supabase Auth supports email/password accounts; Supabase Realtime can provide private realtime channels. Keep RLS enabled for every private table.
+## 2. GitHub Pages
+The existing GitHub Actions workflow deploys the repository root whenever a commit reaches main. In GitHub, open Settings → Pages and confirm deployment from GitHub Actions is enabled.
 
-The browser may use the project's publishable key. Never put a service-role key in browser code or GitHub.
+## 3. Connect minazhang.nl
+The repository CNAME is set to minazhang.nl. At the company where the domain's DNS is managed:
+- Add the four GitHub Pages A records for the root domain: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153
+- Optionally add www as a CNAME to jhzsara.github.io
+- Remove conflicting old A/AAAA/CNAME records for @ or www
+- In GitHub → Settings → Pages, set the custom domain to minazhang.nl and enable Enforce HTTPS once the certificate is ready
 
-### Payments
-Create the €4.99/month subscription with your payment provider (for example Stripe Checkout). The payment provider should collect card details and your app should only keep provider IDs/statuses needed to manage access. Add a server-side checkout endpoint and webhook before taking real payments.
+DNS changes can take time to propagate. I cannot edit registrar DNS from the GitHub connection.
 
-### Age verification
-Use a dedicated provider for the 18+ / identity check. Keep the verification result/reference your app needs rather than building a database of passport scans.
+## 4. What the site does / does not do
+MINAFLIX discovers films and series, displays metadata, trailers and legal viewing options returned by TMDB. It does not host films, proxy streams, or surface unauthorised video sources. A title without a listed provider is not playable on this site.
 
-### Chat
-After Supabase is connected, the app needs:
-1. authenticated subscriber/admin sessions
-2. a conversation per subscriber
-3. realtime messages with strict authorization
-4. private media storage with access policies
-5. report/block/delete controls
-
-### Admin
-Create the admin account through Supabase Auth and mark only that profile as `admin` in the database. Never commit an admin password to GitHub. A password previously pasted into chat should be changed before launch.
-
-### Domain
-The `CNAME` file already contains `minazhang.online`. Enable GitHub Pages in repository settings and configure the DNS records at the domain provider.
-
-## Important
-The current repository is a complete site foundation, not a claim that live payments, verification or chat are connected. Those external accounts and secrets must be configured securely before launch.
+## 5. Before public launch
+- Test on mobile and desktop
+- Check the region setting
+- Review TMDB attribution and terms
+- If the site becomes commercial, obtain the required TMDB permission first
