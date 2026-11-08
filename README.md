@@ -1,28 +1,19 @@
 # MINAFLIX
 
-A mobile-first movie and series discovery website for minazhang.nl.
+A responsive film and series discovery site with an embedded player for Internet Archive items carrying public-domain or Creative Commons licence labels.
 
-## What it does
-- Live movie and TV catalogue powered by TMDB
-- Trending, popular, top-rated and search views
-- Title details, synopsis, cast and official trailers
-- Netherlands-first availability information (stream, free, ads, rent and buy)
-- Local-device watchlist
-- Responsive layout for phones, tablets and desktop
+## Features
+- TMDB-powered discovery, search, trending, popular and top-rated films and series
+- Detail pages with synopsis, cast, trailers and regional provider listings
+- Local watchlist
+- Free/open-licence film browser with embedded Internet Archive playback
+- Mobile-first responsive design
 
-## Important
-MINAFLIX is a discovery guide, not a video-hosting or piracy site. It does not scrape, embed or link to unauthorised streams. It sends viewers to legitimate providers and official trailers. Availability is supplied by TMDB and may change.
+## Content and rights
+MINAFLIX does not scrape or host unauthorised streams. The embedded player is served by Internet Archive for items whose metadata advertises a public-domain or Creative Commons licence. Metadata is supplied by uploaders and is not a legal guarantee; check the source item's licence and local territorial copyright status before viewing, sharing, or reusing. Commercial films are linked to legitimate services through provider availability information.
 
-## First-time setup
-1. Open the deployed site and tap the gear icon.
-2. Create a free TMDB account and request an API Read Access Token at https://www.themoviedb.org/settings/api.
-3. Paste the token into Catalogue settings and choose your country.
-4. Your token is stored in that browser only. It is not committed to GitHub.
+## Setup
+Add a TMDB API Read Access Token in the settings menu. It is stored only in the visitor's browser. TMDB API terms and attribution apply; commercial use requires appropriate permission.
 
-TMDB API use is subject to TMDB's terms and attribution requirements. This product uses the TMDB API but is not endorsed or certified by TMDB. Non-commercial use only unless you obtain the appropriate commercial permission.
-
-## Hosting
-The repository includes a GitHub Pages Actions workflow and a CNAME file for minazhang.nl. The domain's DNS must point to GitHub Pages and GitHub Pages must be enabled for this repository. DNS is managed at your domain registrar, not in GitHub files.
-
-## Privacy
-No account is required. The watchlist and TMDB token are stored locally in the browser. The site does not send them to a custom backend.
+## Domain
+GitHub Pages custom domain: minazhang.online. Ensure DNS and the GitHub Pages custom-domain setting match this domain.
